@@ -1,0 +1,51 @@
+{
+	__notes:"optional, the root path for build depends path and jar",
+	root:".",
+	__notes:"optional, default ';', should be ':' in linux, ';' in windows",
+	seperate:';',
+	__could_also_write_as:";",
+	__notes:"optional, make mapping between the depends path(or jar) and the name, after this, you could used name represent depends path(or jar), just make it easy for depends writing",
+	map:
+	[
+		{
+			name:examaple1,
+			path:"nothing.jar"
+		},
+		{
+			name:examaple2,
+			path:"somewhere/exam"
+		},
+		{
+			name:examaple3,
+			path:"something"
+		}
+	],
+	__notes:"optional, the depends used for all java files build",
+	depends:
+	[
+		examaple1,
+	],
+	__notes:"needed, the array of java files needed to builds",
+	project:
+	[
+		{
+			__notes:"needed, java source filename",
+			target:Class1.java,
+			__notes:"optional, the depends path(or jar) needed by this java file",
+			depends:[examaple2,"others_no_in_map"],
+			__notes:"optional, default true, the program will ignore this java file build if it is false",
+			build:true
+		},
+		{
+			target:Class2.java,
+			depends:[examaple2,examaple3]
+		},
+		{
+			target:Class3.java
+		},
+		{
+			target:Class4.java,
+			build:false
+		}
+	]
+}

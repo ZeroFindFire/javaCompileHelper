@@ -1,0 +1,64 @@
+a small tools to make it easier to build java files
+the project file is a json format string, may like this:
+
+{
+	root:".",
+	seperate:';',
+	map:
+	[
+		{
+			name:examaple1,
+			path:"nothing.jar"
+		},
+		{
+			name:examaple2,
+			path:"somewhere/exam"
+		},
+		{
+			name:examaple3,
+			path:"something"
+		}
+	],
+	depends:
+	[
+		examaple1,
+	],
+	project:
+	[
+		{
+			target:Class1.java,
+			depends:[examaple2,"others_no_in_map"],
+			build:true,
+		},
+		{
+			target:Class2.java,
+			depends:[examaple2,examaple3]
+		},
+		{
+			target:Class3.java
+		},
+		{
+			target:Class4.java,
+			build:false
+		}
+	]
+}
+
+the example above is in file ./example, you can type run.bat example rst.bat to make rst.bat, or java Cmp -cp .;./gson-2.3.jar example rst.sh to make rst.sh
+and the rst file will look like this:
+	javac Class1.java -cp .;./nothing.jar;./somewhere/exam;./others_no_in_map
+	javac Class2.java -cp .;./nothing.jar;./somewhere/exam;./something
+	javac Class3.java -cp .;./nothing.jar
+then you can type rst.bat to make compile Class1.java, Class2.java and Class3.java, Class4.java is not in here because the 'build' option of it is 'false'
+
+the ./example file also include the format and options explaining that the projectfile should look like, it's very easy, you can get it quick soon.
+
+type type run.bat projectfile targetfile [settingsfile]
+or type java Cmp -cp .;./gson-2.3.jar projectfile targetfile [settingsfile]
+to make targetfile
+
+there is a problem, I am not good at shell, so there is not run.sh, if you run Cmp.class by "java Cmp ...", and the inputfile(projectfile,targetfile or settingsfile) is not in same path of Cmp.class, you need to input absolute path of inputfile, hoping someone help make the run.sh
+
+Cmp.java is the source class file, if you find bugs in it, you can edit it and execute build.bat(or build.sh) to recompile the Cmp.class, you can alse type javac Cmp.java -cp .:./gson-2.3.jar to do it
+
+There is not notes in Cmp.java, sorry about it, I think it's very simple so notes is no needed.
